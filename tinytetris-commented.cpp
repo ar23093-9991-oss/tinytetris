@@ -30,14 +30,16 @@ void new_piece() {
 // draw the board and score
 void frame() {
   for (int i = 0; i < 20; i++) {
-    move(1 + i, 1); // otherwise the box won't draw
-    for (int j = 0; j < 10; j++) {
-      board[i][j] && attron(262176 | board[i][j] << 8);
-      printw("  ");
-      attroff(262176 | board[i][j] << 8);
+    for (int k = 0; k < 2; k++) {
+      move(1 + i * 2 + k, 1);
+      for (int j = 0; j < 10; j++) {
+        board[i][j] && attron(262176 | board[i][j] << 8);
+        printw("    ");
+        attroff(262176 | board[i][j] << 8);
+      }
     }
   }
-  move(21, 1);
+  move(41, 1);
   printw("Score: %d", score);
   refresh();
 }
@@ -151,7 +153,7 @@ int main() {
     init_pair(i, i, 0);
   }
   new_piece();
-  resizeterm(22, 22);
+  resizeterm(42, 42);
   noecho();
   timeout(0);
   curs_set(0);
